@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<title> API Assignment</title>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style>
+
+
+
+</style>
+</head
+<body>
+<header>
+<h1> Five Day Forcast</h1>
+</header>
+<div>
+<h2>Sunny with a chance of Awesome</h2>
+<form id= "weather" action="#" onsubmit="return">
+
+<input type="text" id="city"
+                   placeholder=" Enter an American City "/>
+             
+            <p id="newCityBtn"><button href="#" id="">Submit</button>
+            </p>
+</form>
+</div>
+    <hr><div id="message"></div></div>
+<div id= "container">
+   
+
+</div>
+ 
+ <script>
+ /*  
+ Limit the search to US cities (e.g. Salem, US and not Salem, IN)
+Don’t allow users to request a forecast with blank or numeric city entries
+Use your openweathermap api key to make AJAX requests for the appropriate data, and display it on the web page. Presentation is up to you, with a few requirements.
+
+Present a meaningful message to users if the request fails or returns empty forecast data
+for each day, your forecast should show the following:
+date (e.g. feb. 29)
+min/max temperatures in Fahrenheit
+humidity
+weather description (e.g. Rain)
+weather icon (image)
+it should be clear what each piece of information means
+ */
+ $("button").click(function(e){
+ e.preventDefault();
+  console.log("clicked");
+  
+console.log($(":text").val());
+var city = $(":text").val()
+var URL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&appid=95f385db7d438023ad326c55bb756be7&units=imperial";
+//var forecast_date = new Date("DATE_TXT_VALUE_FROM_API");
+     //var forecast_date = new Date("2017-03-10 06:00:00");
+
+ $.getJSON(URL,function(response,status) {
+  if (status == "success") {
+    console.log(response);// handle a successful request
+	data = response
+	for (i=0; i< data.list.legnth; i+=8) {
+  //console.log(data.list[i].dt_txt)
+        $("#container").append("<li>Date: " + new Date(data.list[i].dt_txt))
+        $("#container").append("<li> Minimum Temperature: " + data.list[i].main.temp_min)
+        $("#container").append("<hr>")
+        
+    
+    }
+  } else {
+    // request failed
+  }
+     
+});//end of get
+
+});//end of click
+ </script>
+
+</body>
+</html>
